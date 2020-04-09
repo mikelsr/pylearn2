@@ -115,9 +115,9 @@ class MNIST(dense_design_matrix.DenseDesignMatrix):
         topo_view = topo_view.reshape(m, r, c, 1)
 
         if which_set == 'train':
-            assert m == 60000
+            assert m == 167
         elif which_set == 'test':
-            assert m == 10000
+            assert m == 48
         else:
             assert False
 
