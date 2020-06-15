@@ -26,6 +26,8 @@ from pylearn2.datasets.exc import NotInstalledError
 from pylearn2.utils import serial
 from pylearn2.utils.rng import make_np_rng
 
+SIZE = 28
+
 
 class BinarizedMNIST(DenseDesignMatrix):
     """
@@ -91,10 +93,10 @@ class BinarizedMNIST(DenseDesignMatrix):
                 size = 50000
             else:
                 size = 10000
-            X = numpy.random.binomial(n=1, p=0.5, size=(size, 28 ** 2))
+            X = numpy.random.binomial(n=1, p=0.5, size=(size, SIZE ** 2))
 
         m, d = X.shape
-        assert d == 28 ** 2
+        assert d == SIZE ** 2
         if which_set == 'train':
             assert m == 50000
         else:
@@ -112,7 +114,7 @@ class BinarizedMNIST(DenseDesignMatrix):
 
         super(BinarizedMNIST, self).__init__(
             X=X,
-            view_converter=DefaultViewConverter(shape=(28, 28, 1))
+            view_converter=DefaultViewConverter(shape=(SIZE, SIZE, 1))
         )
 
         assert not numpy.any(numpy.isnan(self.X))

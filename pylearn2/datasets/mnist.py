@@ -19,6 +19,8 @@ from pylearn2.utils.mnist_ubyte import read_mnist_images
 from pylearn2.utils.mnist_ubyte import read_mnist_labels
 from pylearn2.utils.rng import make_np_rng
 
+SIZE = 28
+
 
 class MNIST(dense_design_matrix.DenseDesignMatrix):
     """
@@ -107,17 +109,19 @@ class MNIST(dense_design_matrix.DenseDesignMatrix):
         if binarize:
             topo_view = (topo_view > 0.5).astype('float32')
 
-        y_labels = 10
+	# modified
+        y_labels = 15
 
         m, r, c = topo_view.shape
-        assert r == 28
-        assert c == 28
+        assert r == SIZE
+        assert c == SIZE
         topo_view = topo_view.reshape(m, r, c, 1)
 
+	# modified
         if which_set == 'train':
-            assert m == 167
+            assert m == 135
         elif which_set == 'test':
-            assert m == 48
+            assert m == 30
         else:
             assert False
 
@@ -224,7 +228,7 @@ class MNIST_rotated_background(dense_design_matrix.DenseDesignMatrix):
         if center:
             X -= X.mean(axis=0)
 
-        view_converter = dense_design_matrix.DefaultViewConverter((28, 28, 1))
+        view_converter = dense_design_matrix.DefaultViewConverter((SIZE, SIZE, 1))
 
         super(MNIST_rotated_background, self).__init__(
             X=X, y=y, y_labels=10, view_converter=view_converter)
